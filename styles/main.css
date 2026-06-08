@@ -1,0 +1,612 @@
+/*
+ * Bingo — Main Stylesheet
+ *
+ * Uses semantic CSS custom properties that are injected at runtime
+ * from config.js. The values below serve as fallbacks.
+ *
+ * Font: Inter (loaded from Google Fonts in index.html)
+ */
+
+/* ─── Custom Properties (fallbacks) ─────────────────────────── */
+
+:root {
+  color-scheme: dark;
+
+  /* Theme tokens — overridden by config.js at runtime */
+  --primary: #00106f;
+  --primary-light: #003f90;
+  --primary-mid: #0759b8;
+  --accent: #ffb20d;
+  --accent-soft: #ffd466;
+  --background: #050916;
+  --panel-bg: rgba(4, 20, 68, 0.88);
+  --panel-soft: rgba(255, 255, 255, 0.08);
+  --text: #f9fbff;
+  --muted: #b9c7ea;
+  --line: rgba(255, 255, 255, 0.14);
+
+  /* Derived tokens */
+  --shadow-lg: 0 24px 64px rgba(0, 6, 40, 0.55);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.3);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+  --transition-fast: 140ms ease;
+  --transition-med: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 15%, rgba(255, 178, 13, 0.15), transparent),
+    radial-gradient(ellipse 70% 55% at 85% 12%, rgba(7, 89, 184, 0.35), transparent),
+    radial-gradient(ellipse 50% 70% at 50% 100%, rgba(0, 16, 111, 0.25), transparent),
+    linear-gradient(155deg, #020410 0%, var(--primary) 52%, #06112d 100%);
+}
+
+button {
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* ─── App Shell ─────────────────────────────────────────────── */
+
+.app {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: clamp(8px, 1.25vw, 14px);
+  padding: clamp(10px, 1.4vw, 22px);
+  position: relative;
+}
+
+/* Subtle grid overlay */
+.app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 85%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── HUD (Top Bar) ─────────────────────────────────────────── */
+
+.hud {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(210px, 0.66fr) minmax(330px, 1.05fr) minmax(330px, 0.95fr);
+  gap: clamp(10px, 1.5vw, 18px);
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Glass Panel (shared) ──────────────────────────────────── */
+
+.brand,
+.callout,
+.history-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 70%),
+    var(--panel-bg);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ─── Brand Panel ───────────────────────────────────────────── */
+
+.brand {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(10px, 1.1vw, 16px);
+  align-items: center;
+  padding: clamp(10px, 1.1vw, 16px);
+  min-width: 0;
+}
+
+.logo {
+  width: clamp(58px, 6vw, 96px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: #ffffff;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 5px rgba(255, 178, 13, 0.12),
+    0 0 28px rgba(255, 178, 13, 0.08),
+    0 12px 32px rgba(0, 0, 0, 0.25);
+  transition: box-shadow var(--transition-med);
+}
+
+.brand:hover .logo {
+  box-shadow:
+    0 0 0 5px rgba(255, 178, 13, 0.2),
+    0 0 36px rgba(255, 178, 13, 0.14),
+    0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.brand-text {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.kicker {
+  color: var(--accent-soft);
+  font-size: clamp(11px, 1.15vw, 16px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+.title {
+  color: #ffffff;
+  font-size: clamp(22px, 2.8vw, 44px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: clamp(10px, 0.95vw, 14px);
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Callout Panel (Last Number) ───────────────────────────── */
+
+.callout {
+  display: grid;
+  place-items: center;
+  padding: clamp(8px, 0.8vw, 14px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sweep flash animation overlay */
+.callout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: translateX(-125%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.callout.flash::before {
+  animation: sweep 600ms ease;
+}
+
+.callout-inner {
+  display: grid;
+  justify-items: center;
+  gap: clamp(4px, 0.7vw, 8px);
+  text-align: center;
+  position: relative;
+}
+
+.label {
+  color: var(--accent-soft);
+  font-size: clamp(12px, 1.3vw, 20px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.last-number {
+  display: grid;
+  place-items: center;
+  min-width: clamp(130px, 16vw, 250px);
+  min-height: clamp(68px, 9.5vw, 130px);
+  padding: 0 0.2em;
+  border: 5px solid #ffffff;
+  border-radius: var(--radius-pill);
+  background:
+    radial-gradient(circle at 32% 22%, #ffffff 0%, #ffffff 30%, #f3f6ff 31%, #dde6ff 100%);
+  color: var(--primary);
+  font-size: clamp(46px, 7vw, 108px);
+  font-weight: 900;
+  line-height: 0.88;
+  box-shadow:
+    0 0 0 5px var(--accent),
+    0 0 40px rgba(255, 178, 13, 0.15),
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 -12px 22px rgba(0, 16, 111, 0.12);
+  text-shadow: 0 3px 0 rgba(255, 178, 13, 0.18);
+  transition: transform var(--transition-med), box-shadow var(--transition-med);
+}
+
+.placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(50px, 8.5vw, 120px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: clamp(11px, 1.1vw, 16px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ─── History Panel ─────────────────────────────────────────── */
+
+.history-panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  padding: clamp(10px, 1.1vw, 16px);
+  min-width: 0;
+}
+
+.history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.history-title {
+  color: #ffffff;
+  font-size: clamp(12px, 1.2vw, 18px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.counter {
+  color: var(--accent-soft);
+  font-size: clamp(13px, 1.3vw, 20px);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ─── Recent Bubbles ────────────────────────────────────────── */
+
+.recent {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(7px, 0.8vw, 12px);
+  min-height: clamp(66px, 7vw, 100px);
+  overflow: hidden;
+}
+
+.bubble {
+  width: clamp(42px, 4.6vw, 68px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  background: #ffffff;
+  color: var(--primary);
+  font-size: clamp(16px, 2vw, 30px);
+  font-weight: 900;
+  box-shadow:
+    0 0 0 3px var(--accent),
+    0 10px 24px rgba(0, 0, 0, 0.22);
+  flex: 0 0 auto;
+  position: relative;
+  transition: transform var(--transition-med), opacity var(--transition-med);
+}
+
+.bubble.current {
+  width: clamp(68px, 7vw, 106px);
+  border-width: 4px;
+  font-size: clamp(26px, 3.2vw, 50px);
+  box-shadow:
+    0 0 0 4px var(--accent),
+    0 0 28px rgba(255, 178, 13, 0.2),
+    0 14px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(4px);
+}
+
+.bubble.current::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--accent-soft);
+  font-size: clamp(8px, 0.68vw, 11px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.bubble.previous {
+  opacity: 0.78;
+}
+
+.bubble span {
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  line-height: 0.85;
+}
+
+.bubble small {
+  color: var(--primary-mid);
+  font-size: 0.46em;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.bubble.empty {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+/* ─── Reset Button ──────────────────────────────────────────── */
+
+.action {
+  min-height: clamp(38px, 4vw, 48px);
+  padding: 0 1.2em;
+  border: 1px solid rgba(255, 178, 13, 0.4);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 178, 13, 0.08);
+  color: #fff4d1;
+  font-size: clamp(12px, 1.15vw, 15px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.action:hover {
+  border-color: var(--accent);
+  background: rgba(255, 178, 13, 0.16);
+  box-shadow: 0 0 20px rgba(255, 178, 13, 0.1);
+  transform: translateY(-1px);
+}
+
+.action:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ─── Main Board Section ────────────────────────────────────── */
+
+.main-panel {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: clamp(6px, 0.75vw, 10px);
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #ffffff;
+  font-size: clamp(14px, 1.5vw, 22px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.section-title span:last-child {
+  color: var(--muted);
+  font-size: clamp(10px, 0.95vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+/* ─── Board Grid ────────────────────────────────────────────── */
+
+.board {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: clamp(7px, 0.9vw, 12px);
+  overflow: hidden;
+}
+
+.column {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: clamp(58px, 6vw, 104px) 1fr;
+  gap: clamp(7px, 0.7vw, 12px);
+  overflow: hidden;
+}
+
+.letter {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  min-height: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(180deg, #ffffff 0%, #eaf0ff 100%);
+  color: var(--primary);
+  font-size: clamp(26px, 3.6vw, 58px);
+  font-weight: 900;
+  line-height: 1;
+  box-shadow:
+    inset 0 -4px 0 rgba(0, 16, 111, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ─── Number Grid ───────────────────────────────────────────── */
+
+.numbers {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(15, minmax(0, 1fr));
+  gap: clamp(4px, 0.5vw, 8px);
+  overflow: hidden;
+}
+
+.number {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.58);
+  font-size: clamp(18px, 2vw, 38px);
+  font-weight: 800;
+  line-height: 1;
+  user-select: none;
+  touch-action: manipulation;
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-med),
+    color var(--transition-med),
+    border-color var(--transition-med),
+    box-shadow var(--transition-med);
+}
+
+.number:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.number.called-number {
+  border-color: var(--accent);
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.45), transparent 40%),
+    var(--accent);
+  color: #1a1000;
+  box-shadow:
+    inset 0 -4px 0 rgba(120, 70, 0, 0.14),
+    0 0 16px rgba(255, 178, 13, 0.12);
+}
+
+.number.latest {
+  outline: 3px solid #ffffff;
+  outline-offset: -3px;
+  transform: scale(1.04);
+  box-shadow:
+    inset 0 -4px 0 rgba(120, 70, 0, 0.14),
+    0 0 24px rgba(255, 178, 13, 0.25);
+}
+
+.number:focus,
+.action:focus {
+  outline: none;
+}
+
+.number:focus-visible,
+.action:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: -3px;
+}
+
+/* ─── Animations ────────────────────────────────────────────── */
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-125%);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(125%);
+  }
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  body {
+    overflow: auto;
+  }
+
+  .app {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .hud {
+    grid-template-columns: 1fr;
+  }
+
+  .brand {
+    grid-template-columns: auto 1fr;
+  }
+
+  .history-panel {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+  }
+
+  .recent {
+    justify-content: flex-start;
+  }
+
+  .action {
+    grid-row: 1 / 3;
+    grid-column: 2;
+    min-width: 120px;
+  }
+
+  .board {
+    min-height: 50vh;
+  }
+}
