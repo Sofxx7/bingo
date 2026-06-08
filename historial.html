@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bingo — Historial de Juegos</title>
+  <meta name="description" content="Historial completo de partidas de Bingo.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+  <main class="app history-layout">
+    <div class="history-container">
+      <div class="history-header">
+        <button class="history-back-btn" id="historyBackBtn" type="button">↩ Volver al menú</button>
+        <h1 class="history-main-title" id="historyMainTitle">Historial de Juegos</h1>
+        <button class="action danger-btn" id="historyClearBtn" type="button">🗑 Limpiar historial</button>
+      </div>
+      
+      <div class="history-scroll" id="historyScroll">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </main>
+
+  <!-- App Logic (ES Module) -->
+  <script type="module" src="./src/historial.js"></script>
+</body>
+</html>

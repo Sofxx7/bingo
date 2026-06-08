@@ -24,6 +24,8 @@ export const CONFIG = {
     { letter: "O", start: 61, end: 75 },
   ],
   recentCount: 6,
+  defaultMode: "full_card",
+  modeReminderDurationMs: 8000, // Duration of fullscreen mode card in milliseconds
 
   // ─── Theme Colors ──────────────────────────────────────────
   // These are injected as CSS custom properties at runtime.
@@ -45,7 +47,9 @@ export const CONFIG = {
   // ─── Features ──────────────────────────────────────────────
   enableAnimations: true,
   enableLocalStorage: true,
-  storageKey: "bingo-game-state",
+  storageKeyActiveGame: "bingo-active-game",
+  storageKeyHistory: "bingo-game-history",
+  storageKeySettings: "bingo-settings",
 
   // ─── UI Labels (for future i18n) ──────────────────────────
   labels: {
@@ -59,5 +63,32 @@ export const CONFIG = {
     lastBubbleLabel: "ÚLTIMO",
     statusTemplate: "{count} de {total} números",
     bingoLetters: "B-I-N-G-O",
+    modeSelectorTitle: "¿Cómo se gana?",
+    modeSelectorSubtitle: "Selecciona el modo de juego",
+    changeMode: "Cambiar modo",
+    currentMode: "Modo actual",
+
+    // Navigation and Action Labels
+    homeStartButton: "Nueva Partida",
+    homeContinueButton: "Continuar Partida",
+    homeHistoryButton: "Historial",
+    historyTitle: "Historial de Juegos",
+    historyClearButton: "Limpiar Historial",
+    historyEmpty: "No hay juegos registrados.",
+    winnerModalTitle: "🏆 ¡¡BINGO!!",
+    winnerModalSubtitle: "Ganador de esta partida",
+    winnerNamePlaceholder: "Nombre del ganador...",
+    saveWinnerButton: "Guardar",
+    cancelButton: "Cancelar",
+    finishGameButton: "Finalizar partida",
+    backToMenuButton: "Menú",
+    noWinnersLabel: "Sin ganadores",
+    lastGameTitle: "Último juego",
+
+    // Confirmation dialogues
+    overwriteActiveGameConfirm: "Ya hay una partida en curso. ¿Quieres reemplazarla por una nueva?",
+    finishGameHasWinnersConfirm: "¿Quieres finalizar la partida y registrarla en el historial?",
+    finishGameNoWinnersConfirm: "Esta partida no tiene ganadores registrados. ¿Deseas finalizarla igual?",
+    clearHistoryConfirm: "¿Quieres borrar todo el historial de juegos?",
   },
 };

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bingo — Tablero de Proyección</title>
+  <meta name="description" content="Tablero de proyección y control para bingo B-I-N-G-O.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+  <main class="app game-layout" id="viewGame">
+    <!-- ─── HUD: Branding + Last Number + History ─── -->
+    <section class="hud" aria-live="polite">
+
+      <!-- Brand (Click to show full-screen mode overlay) -->
+      <div class="brand" id="brandLogoButton" style="cursor: pointer;" title="Mostrar modo a pantalla completa">
+        <img class="logo" id="logo" src="./assets/logo.jpeg" alt="Logo">
+        <div class="brand-text">
+          <div class="kicker" id="kicker"></div>
+          <div class="title" id="appTitle"></div>
+          <div class="subtitle" id="subtitle"></div>
+        </div>
+      </div>
+
+      <!-- Callout: last called number -->
+      <div class="callout" id="calledPanel">
+        <div class="callout-inner">
+          <div class="label" id="labelCalled">Número cantado</div>
+          <div id="lastNumber" class="placeholder">—</div>
+          <div class="meta" id="lastPlain">Esperando el primer número</div>
+        </div>
+      </div>
+
+      <!-- History & controls -->
+      <aside class="history-panel" aria-label="Últimos números y controles">
+        <div class="history-head">
+          <div class="history-title" id="historyTitle">Últimos números</div>
+          <div class="counter"><span id="count">0</span>/<span id="totalDisplay">75</span></div>
+        </div>
+        <div class="recent" id="recentNumbers"></div>
+        
+        <div class="game-actions-row">
+          <button class="action winner-btn" id="winnerBtn" type="button">🏆 ¡BINGO!</button>
+          <button class="action reset-btn" id="resetButton" type="button">Reiniciar</button>
+          <button class="action menu-btn" id="menuBtn" type="button">Menú</button>
+          <button class="action finalize-btn" id="finalizeBtn" type="button">Finalizar</button>
+        </div>
+      </aside>
+
+    </section>
+
+    <!-- ─── Board ─── -->
+    <section class="main-panel">
+      <div class="section-title">
+        <div id="modeIndicator"></div>
+        <span id="boardTitle">Números salidos</span>
+        <span id="bingoLetters">B-I-N-G-O</span>
+      </div>
+      <div class="board" id="board" aria-label="Tablero de números salidos"></div>
+    </section>
+  </main>
+
+  <!-- Mode Selector Overlay -->
+  <div class="mode-overlay" id="modeOverlay"></div>
+
+  <!-- Full-Screen Mode Reminder Overlay (Clic en Logo) -->
+  <div class="mode-reminder-overlay" id="modeReminderOverlay"></div>
+
+  <!-- Winner Registration Modal Overlay -->
+  <div class="winner-modal-overlay" id="winnerModalOverlay">
+    <div class="winner-modal">
+      <h2 id="winnerModalTitle">🏆 ¡¡BINGO!!</h2>
+      <p id="winnerModalSubtitle">Ganador de esta partida</p>
+      
+      <form id="winnerForm" autocomplete="off">
+        <div class="input-group">
+          <input type="text" id="winnerNameInput" placeholder="Nombre del ganador..." required autofocus>
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="action save-btn" id="saveWinnerBtn">Guardar</button>
+          <button type="button" class="action cancel-btn" id="cancelWinnerBtn">Cancelar</button>
+        </div>
+      </form>
+
+      <div class="modal-winners-list" id="modalWinnersList">
+        <!-- List of current winners in this game session -->
+      </div>
+    </div>
+  </div>
+
+  <!-- App Logic (ES Module) -->
+  <script type="module" src="./src/juego.js"></script>
+</body>
+</html>

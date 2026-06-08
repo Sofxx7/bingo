@@ -126,12 +126,12 @@ bingo/
 | Versión | Descripción | Estado |
 |---------|-------------|--------|
 | v0.1 | HTML monolítico original | ✅ Completado |
-| **v0.2** | **Reestructuración modular + configuración** | ✅ **Actual** |
-| v0.3 | Modos de victoria (horizontal, vertical, diagonal, esquinas, lleno) | 📋 Planeado |
-| v0.4 | Sorteo automático de números + deshacer último | 📋 Planeado |
-| v0.5 | Generación de cartillas imprimibles | 📋 Planeado |
-| v0.6 | Menú inicial para elegir modo de juego | 📋 Planeado |
-| v0.7 | Validación de ganador según modo elegido | 📋 Planeado |
+| v0.2 | Reestructuración modular + configuración | ✅ Completado |
+| v0.3 | Menú principal + selector de modo | ✅ Completado |
+| **v0.4** | **Registro de ganadores + historial del día** | ✅ **Actual** |
+| v0.5 | Sorteo automático + deshacer último | 📋 Planeado |
+| v0.6 | Generación de cartillas | 📋 Planeado |
+| v0.7 | Validación automática de ganador | 📋 Planeado |
 | v1.0 | Release estable con todas las features core | 📋 Planeado |
 
 ---

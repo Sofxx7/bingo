@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bingo — Tablero de Proyección</title>
-  <meta name="description" content="Tablero de proyección para bingo B-I-N-G-O de 75 números. Configurable, modular y open source.">
+  <title>Bingo — Menú Principal</title>
+  <meta name="description" content="Tablero de proyección y control para bingo B-I-N-G-O. Menú principal.">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,52 +15,71 @@
   <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
-  <main class="app">
-    <!-- ─── HUD: Branding + Last Number + History ─── -->
-    <section class="hud" aria-live="polite">
-
-      <!-- Brand -->
-      <div class="brand">
-        <img class="logo" id="logo" src="./assets/logo.jpeg" alt="Logo">
-        <div class="brand-text">
-          <div class="kicker" id="kicker"></div>
-          <div class="title" id="appTitle"></div>
-          <div class="subtitle" id="subtitle"></div>
+  <main class="app home-layout">
+    <div class="home-container">
+      <!-- Logo and branding large -->
+      <div class="home-brand">
+        <img class="home-logo" id="homeLogo" src="./assets/logo.jpeg" alt="Logo">
+        <div class="home-brand-text">
+          <span class="home-kicker" id="homeKicker">Renovación Universitaria</span>
+          <h1 class="home-title" id="homeAppTitle">BINGO</h1>
+          <span class="home-subtitle" id="homeSubtitle">Universidad Privada de Tacna</span>
         </div>
       </div>
 
-      <!-- Callout: last called number -->
-      <div class="callout" id="calledPanel">
-        <div class="callout-inner">
-          <div class="label" id="labelCalled">Número cantado</div>
-          <div id="lastNumber" class="placeholder">—</div>
-          <div class="meta" id="lastPlain">Esperando el primer número</div>
-        </div>
+      <!-- Mode selection info -->
+      <div class="home-mode-info">
+        <span class="mode-info-label">Modo predeterminado:</span>
+        <span class="mode-info-value" id="homeCurrentModeLabel">—</span>
+        <button class="action-link" id="homeChangeModeBtn" type="button">Cambiar modo</button>
       </div>
 
-      <!-- History & controls -->
-      <aside class="history-panel" aria-label="Últimos números y controles">
-        <div class="history-head">
-          <div class="history-title" id="historyTitle">Últimos números</div>
-          <div class="counter"><span id="count">0</span>/<span id="totalDisplay">75</span></div>
-        </div>
-        <div class="recent" id="recentNumbers"></div>
-        <button class="action" id="resetButton" type="button">Reiniciar</button>
-      </aside>
-
-    </section>
-
-    <!-- ─── Board ─── -->
-    <section class="main-panel">
-      <div class="section-title">
-        <span id="boardTitle">Números salidos</span>
-        <span id="bingoLetters">B-I-N-G-O</span>
+      <!-- Active Game Alert Box -->
+      <div class="home-active-panel" id="homeActiveGamePanel">
+        <div class="active-badge">PARTIDA EN CURSO</div>
+        <p class="active-summary" id="homeActiveGameSummary">Cargando...</p>
+        <button class="home-btn continue-btn" id="homeContinueBtn" type="button">
+          Continuar Partida
+        </button>
       </div>
-      <div class="board" id="board" aria-label="Tablero de números salidos"></div>
-    </section>
+
+      <!-- Home Actions -->
+      <div class="home-actions">
+        <button class="home-btn primary-btn" id="homeStartBtn" type="button">
+          Nueva Partida
+        </button>
+        <button class="home-btn secondary-btn" id="homeHistoryBtn" type="button">
+          Historial
+        </button>
+      </div>
+
+      <!-- Last Game Panel / Summary (Daily Stats) -->
+      <div class="home-summary-panel" id="homeSummaryPanel">
+        <div class="summary-title" id="homeLastGameTitle">Último juego de hoy</div>
+        <div class="summary-content" id="homeSummaryContent">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
   </main>
 
+  <!-- Mode Selector Overlay -->
+  <div class="mode-overlay" id="modeOverlay"></div>
+
+  <!-- Confirm Overwrite Modal -->
+  <div class="confirm-modal-overlay" id="confirmOverwriteOverlay">
+    <div class="confirm-modal">
+      <h2>Partida en curso</h2>
+      <p id="confirmOverwriteMessage">Ya hay una partida en curso. ¿Qué deseas hacer?</p>
+      <div class="confirm-modal-buttons">
+        <button class="confirm-action-btn continue" id="confirmContinueBtn">Continuar partida</button>
+        <button class="confirm-action-btn overwrite" id="confirmOverwriteBtn">Iniciar nueva</button>
+        <button class="confirm-action-btn cancel" id="confirmCancelBtn">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- App Logic (ES Module) -->
-  <script type="module" src="./src/main.js"></script>
+  <script type="module" src="./src/menu.js"></script>
 </body>
 </html>
